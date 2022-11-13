@@ -1,13 +1,15 @@
 import React from "react";
+import Body from "./Body/body";
+import Header from "./Header/header";
 
-import HeaderText from "./Header/header-text";
-import CatagoryItem from "./Body/Catagory/catagory-item";
 
 const Main = () => {
     return (
         <div>
-            <HeaderText />
-            <CatagoryItem />
+            <Header />
+            <div className="container">
+            <Body />
+            </div>
         </div>
     )
 }
