@@ -1,55 +1,4 @@
-// import React, { Component } from "react";
-// import {
-//   Navbar,
-//   NavbarBrand,
-//   Nav,
-//   NavItem,
-//   NavbarToggler,
-//   Collapse,
-// } from "reactstrap";
-// import { Link } from "react-router-dom";
-
-// class Navigation extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       isNavOpen: false,
-//     };
-//   }
-
-//   navToggle = () => {
-//     this.setState({
-//       isNavOpen: !this.state.isNavOpen,
-//     });
-//   };
-
-//   render() {
-//     return (
-//       <div style={{ marginBottom: "15px" }}>
-//         <Navbar dark color="dark" expand="md">
-//           <div className="container">
-//             <NavbarToggler className="" onClick={this.navToggle} />
-
-//             <NavbarBrand href="/">DHK Clothing</NavbarBrand>
-//             <Collapse isOpen={this.state.isNavOpen} navbar>
-//               <Nav className="me-auto" navbar>
-//                 <NavItem>
-//                   <Link to="/" className="nav-link">
-//                     Home
-//                   </Link>
-//                 </NavItem>
-//               </Nav>
-//             </Collapse>
-//           </div>
-//         </Navbar>
-//       </div>
-//     );
-//   }
-// }
-
-// export default Navigation;
-
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Collapse,
   Navbar,
@@ -59,11 +8,20 @@ import {
   NavItem,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../contexts/user.context";
+import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 function Navigation(props) {
   const [collapsed, setCollapsed] = useState(false);
 
   const toggleNavbar = () => setCollapsed(!collapsed);
+
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+
+  const signOutHandler = async () => {
+    await signOutUser();
+    setCurrentUser(null);
+  };
 
   return (
     <div className="mb-3">
@@ -80,9 +38,15 @@ function Navigation(props) {
               </Link>
             </NavItem>
             <NavItem>
-              <Link to="/sign-in" className="nav-link">
-                Sign In
-              </Link>
+              {currentUser ? (
+                <Link className="nav-link" onClick={signOutHandler}>
+                  Sign Out
+                </Link>
+              ) : (
+                <Link to="/sign-in" className="nav-link">
+                  Sign In
+                </Link>
+              )}
             </NavItem>
             <NavItem>
               <Link to="/components/" className="nav-link">
