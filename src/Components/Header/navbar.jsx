@@ -16,12 +16,7 @@ function Navigation(props) {
 
   const toggleNavbar = () => setCollapsed(!collapsed);
 
-  const { currentUser, setCurrentUser } = useContext(UserContext);
-
-  const signOutHandler = async () => {
-    await signOutUser();
-    setCurrentUser(null);
-  };
+  const { currentUser } = useContext(UserContext);
 
   return (
     <div className="mb-3">
@@ -39,7 +34,7 @@ function Navigation(props) {
             </NavItem>
             <NavItem>
               {currentUser ? (
-                <Link className="nav-link" onClick={signOutHandler}>
+                <Link className="nav-link" onClick={signOutUser}>
                   Sign Out
                 </Link>
               ) : (
