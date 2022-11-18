@@ -1,13 +1,17 @@
-import React, { Component } from "react";
+import { Routes, Route } from "react-router-dom";
 
-class Shop extends Component {
-  render() {
-    return (
-      <div style={{ textAlign: "center" }}>
-        <h1>This is Shop</h1>
-      </div>
-    );
-  }
-}
+import "./shop.styles.scss";
+
+import CategoriesPreview from "../categories-preview/categories-preview";
+import Category from "../Category/category";
+
+const Shop = () => {
+  return (
+    <Routes>
+      <Route index element={<CategoriesPreview />} />
+      <Route path=":category" element={<Category />} />
+    </Routes>
+  );
+};
 
 export default Shop;

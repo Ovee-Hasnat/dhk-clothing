@@ -20,7 +20,12 @@ function Navigation(props) {
 
   return (
     <div className="mb-3">
-      <Navbar dark color="dark" light expand="md">
+      <Navbar
+        dark
+        color="dark"
+        expand="md"
+        sticky="top"
+      >
         <NavbarBrand href="/" className="me-auto">
           DHK Clothing
         </NavbarBrand>
