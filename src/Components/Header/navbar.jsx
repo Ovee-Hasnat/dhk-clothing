@@ -8,8 +8,13 @@ import {
   NavItem,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../contexts/user.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
+
+import { UserContext } from "../../contexts/user.context";
+import { CartContext } from "../../contexts/cart.context";
+
+import CartIcon from "./shopping-cart/shopping-cart";
+import CartDropdown from "../Cart-dropdown/cart-dropdown";
 
 function Navigation(props) {
   const [collapsed, setCollapsed] = useState(false);
@@ -17,15 +22,11 @@ function Navigation(props) {
   const toggleNavbar = () => setCollapsed(!collapsed);
 
   const { currentUser } = useContext(UserContext);
+  const { isCartOpen } = useContext(CartContext);
 
   return (
     <div className="mb-3">
-      <Navbar
-        dark
-        color="dark"
-        expand="md"
-        sticky="top"
-      >
+      <Navbar dark color="dark" expand="md">
         <NavbarBrand href="/" className="me-auto">
           DHK Clothing
         </NavbarBrand>
@@ -49,13 +50,12 @@ function Navigation(props) {
               )}
             </NavItem>
             <NavItem>
-              <Link to="/components/" className="nav-link">
-                Components
-              </Link>
+              <CartIcon />
             </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
+      {isCartOpen && <CartDropdown />}
     </div>
   );
 }
